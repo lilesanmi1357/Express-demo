@@ -42,11 +42,9 @@ const UserSchema = new mongoose.Schema({
 
 
 UserSchema.pre("save",async function(next){
-    console.log("INS")
     if(!this.isModified("password")){
         return next()
     }
-    console.log('hashing')
     try{
         let hashedPassword = await bcrypt.hash(this.password,10)
         this.password = hashedPassword
@@ -54,9 +52,7 @@ UserSchema.pre("save",async function(next){
         next()
     }
     catch(e){
-console.log("ERROR")
-    }
-  
+    } 
 })
 
 
